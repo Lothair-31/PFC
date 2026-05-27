@@ -279,7 +279,7 @@ export default function ProductPage() {
             <input
               type="number"
               value={quantity}
-              min={1}
+              min={0}
               onChange={(e) => setQuantity(Math.max(1, parseInt(e.target.value) || 1))}
               style={{ width: 90, height: 56, border: "1px solid #cfcfcf", background: "#fff", fontSize: "16px", padding: "0 14px", outline: "none" }}
             />
