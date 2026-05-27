@@ -184,20 +184,33 @@ export default function ProductPage() {
               Quantity
             </p>
             <input
-              type="number"
-              min={1}
+              type="text"
+              inputMode="numeric"
+              pattern="[0-9]*"
               value={quantity}
               onChange={(e) => {
-                setQuantity(e.target.value);
+                const val = e.target.value.replace(/[^0-9]/g, "");
+                setQuantity(val);
+              }}
+              onBlur={() => {
+                if (quantity === "" || Number(quantity) <= 0) {
+                  setQuantity("1");
+                }
               }}
               style={{
-                width: 90,
-                height: 56,
-                border: "1px solid #cfcfcf",
+                width: "100%",
+                height: 54,
+                border: "1px solid #111",
                 background: "#fff",
-                fontSize: "16px",
-                padding: "0 14px",
+                textAlign: "center",
+                fontSize: "18px",
+                color: "#111",
                 outline: "none",
+                marginBottom: 10,
+                boxSizing: "border-box",
+                appearance: "none",
+                WebkitAppearance: "none",
+                MozAppearance: "textfield",
               }}
             />
             <button
