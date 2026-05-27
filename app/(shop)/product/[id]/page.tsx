@@ -159,7 +159,7 @@ export default function ProductPage() {
         </div>
 
         {/* Product Details */}
-        <div style={{ padding: "28px 24px 40px", textAlign: "center" }}>
+        <div style={{ padding: "28px 24px 40px", textAlign: "center", display: "flex", flexDirection: "column", alignItems: "stretch" }}>
           <h1 style={{ fontSize: "22px", fontWeight: 500, color: "#111" }}>{product.name}</h1>
           <p style={{ fontSize: "16px", color: "#333" }}>{formatPrice(product.price)}</p>
           <p style={{ fontSize: "13px", color: "#666", margin: "16px 0", lineHeight: 1.7 }}>
@@ -179,7 +179,7 @@ export default function ProductPage() {
 
           <hr style={{ border: "none", borderTop: "1px solid #ddd", width: "100%", margin: "4px 0" }} />
 
-          <div style={{ width: "100%", display: "flex", flexDirection: "column" }}>
+          <div style={{ width: "100%", alignSelf: "stretch" }}>
             <p style={{ fontSize: "12px", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: 12, color: "#111" }}>
               Quantity
             </p>
