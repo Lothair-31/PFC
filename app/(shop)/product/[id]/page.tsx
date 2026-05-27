@@ -91,7 +91,7 @@ export default function ProductPage() {
   const handleAddToCart = () => {
     if (!product) return;
     addToCart(product, quantity);
-    
+
     const btn = document.activeElement as HTMLButtonElement;
     if (btn) {
       const originalText = btn.textContent;
@@ -106,16 +106,16 @@ export default function ProductPage() {
   if (!product) return <div style={{ padding: 80, textAlign: "center" }}>Product not found</div>;
 
   // === MAIN FIX: Get first image from images array ===
-  const imagesArray = Array.isArray(product.images) 
-    ? product.images 
-    : typeof product.images === "string" 
-      ? JSON.parse(product.images) 
+  const imagesArray = Array.isArray(product.images)
+    ? product.images
+    : typeof product.images === "string"
+      ? JSON.parse(product.images)
       : [];
 
   const mainImage = imagesArray[0] || product.image || "/tshirt.png";
 
-  const images = imagesArray.length > 0 
-    ? imagesArray 
+  const images = imagesArray.length > 0
+    ? imagesArray
     : product.image ? [product.image] : ["/tshirt.png"];
 
   const safeSrc = (src?: string) => src || "/tshirt.png";
@@ -186,11 +186,19 @@ export default function ProductPage() {
             <input
               type="number"
               value={quantity}
-              min={0}
-              onChange={(e) => setQuantity(Math.max(1, parseInt(e.target.value) || 1))}
+              min={1}
+              onChange={(e) => {
+                const val = e.target.value;
+                if (val === "") {
+                  setQuantity(0);
+                  return;
+                }
+                const num = parseInt(val);
+                if (!isNaN(num) && num >= 0) setQuantity(num);
+              }}
               style={{ width: "100%", padding: "14px", fontSize: "15px", border: "1px solid #bbb", background: "#fff", textAlign: "center", marginBottom: 10 }}
             />
-            <button 
+            <button
               onClick={handleAddToCart}
               style={{ width: "100%", background: "#111", color: "#fff", border: "none", padding: "16px", fontWeight: 700, letterSpacing: "0.15em", textTransform: "uppercase" }}
             >
@@ -229,19 +237,19 @@ export default function ProductPage() {
         {/* Images - Main image now uses first from images array */}
         <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr", gap: 4, height: 640 }}>
           <div style={{ background: "#ececec", overflow: "hidden" }}>
-            <img 
-              src={safeSrc(mainImage)} 
-              alt={product.name} 
-              style={{ width: "100%", height: "100%", objectFit: "cover" }} 
+            <img
+              src={safeSrc(mainImage)}
+              alt={product.name}
+              style={{ width: "100%", height: "100%", objectFit: "cover" }}
             />
           </div>
           <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
             {images.slice(1, 3).map((img, i) => (
               <div key={i} style={{ flex: 1, background: "#ececec", overflow: "hidden" }}>
-                <img 
-                  src={safeSrc(img)} 
-                  alt={product.name} 
-                  style={{ width: "100%", height: "100%", objectFit: "cover" }} 
+                <img
+                  src={safeSrc(img)}
+                  alt={product.name}
+                  style={{ width: "100%", height: "100%", objectFit: "cover" }}
                 />
               </div>
             ))}
@@ -277,13 +285,19 @@ export default function ProductPage() {
 
           <div style={{ display: "flex", gap: 12 }}>
             <input
-              type="number"
+              type="text"
+              inputMode="numeric"
+              pattern="[0-9]*"
               value={quantity}
-              min={0}
-              onChange={(e) => setQuantity(Math.max(1, parseInt(e.target.value) || 1))}
+              onChange={(e) => {
+                const val = e.target.value;
+                if (val === "") { setQuantity(0); return; }
+                const num = parseInt(val);
+                if (!isNaN(num) && num >= 0) setQuantity(num);
+              }}
               style={{ width: 90, height: 56, border: "1px solid #cfcfcf", background: "#fff", fontSize: "16px", padding: "0 14px", outline: "none" }}
             />
-            <button 
+            <button
               onClick={handleAddToCart}
               style={{ flex: 1, height: 56, background: "#111", color: "#fff", border: "none", fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", cursor: "pointer" }}
             >
