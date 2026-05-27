@@ -199,8 +199,6 @@ export default function ProductPage() {
               }}
               style={{
                 width: "100%",
-                maxWidth: "100%",
-                display: "block",
                 height: 54,
                 border: "1px solid #111",
                 background: "#fff",
@@ -209,10 +207,9 @@ export default function ProductPage() {
                 color: "#111",
                 outline: "none",
                 marginBottom: 10,
-                boxSizing: "border-box",
-                appearance: "none",
-                WebkitAppearance: "none",
-                MozAppearance: "textfield",
+                boxSizing: "border-box" as const,
+                display: "block",
+                padding: 0,
               }}
             />
             <button
