@@ -201,7 +201,6 @@ export default function ProductPage() {
                 width: "100%",
                 maxWidth: "100%",
                 display: "block",
-                flex: 1,
                 height: 54,
                 border: "1px solid #111",
                 background: "#fff",
