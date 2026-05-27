@@ -90,7 +90,7 @@ export default function ProductPage() {
 
   const handleAddToCart = () => {
     if (!product) return;
-    addToCart(product, quantity);
+    addToCart(product, parseInt(quantity) || 1);
 
     const btn = document.activeElement as HTMLButtonElement;
     if (btn) {
@@ -184,17 +184,16 @@ export default function ProductPage() {
               Quantity
             </p>
             <input
-              type="number"
+              type="text"
+              inputMode="numeric"
+              pattern="[0-9]*"
               value={quantity}
-              min={1}
               onChange={(e) => {
-                const val = e.target.value;
-                if (val === "") {
-                  setQuantity(0);
-                  return;
-                }
-                const num = parseInt(val);
-                if (!isNaN(num) && num >= 0) setQuantity(num);
+                const val = e.target.value.replace(/[^0-9]/g, "");
+                setQuantity(val);
+              }}
+              onBlur={() => {
+                if (quantity === "" || quantity === "0") setQuantity("1");
               }}
               style={{ width: "100%", padding: "14px", fontSize: "15px", border: "1px solid #bbb", background: "#fff", textAlign: "center", marginBottom: 10 }}
             />
