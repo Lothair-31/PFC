@@ -179,7 +179,7 @@ export default function ProductPage() {
 
           <hr style={{ border: "none", borderTop: "1px solid #ddd", width: "100%", margin: "4px 0" }} />
 
-          <div style={{ width: "100%" }}>
+          <div style={{ width: "100%", display: "flex", flexDirection: "column" }}>
             <p style={{ fontSize: "12px", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: 12, color: "#111" }}>
               Quantity
             </p>
