@@ -22,7 +22,7 @@ export default function ProductPage() {
   const [loading, setLoading] = useState(true);
   const [isMobile, setIsMobile] = useState(false);
   const [activeSlide, setActiveSlide] = useState(0);
-  const [quantity, setQuantity] = useState<string>("1");
+  const [quantity, setQuantity] = useState<number | string>(1);
 
   const slideRefs = useRef<(HTMLDivElement | null)[]>([]);
   const { addToCart } = useCart();
@@ -57,7 +57,7 @@ export default function ProductPage() {
         const data = await res.json();
         const allProducts = data.products || [];
         const others = allProducts.filter((p: Product) => p.id !== id);
-        setRecommended(others.slice(0, 6));
+        setRecommended(others.slice(0, 3));
       } catch (err) {
         console.error(err);
       }
@@ -90,7 +90,7 @@ export default function ProductPage() {
 
   const handleAddToCart = () => {
     if (!product) return;
-    addToCart(product, parseInt(quantity) || 1);
+    addToCart(product, Number(quantity) || 1);
 
     const btn = document.activeElement as HTMLButtonElement;
     if (btn) {
@@ -184,22 +184,37 @@ export default function ProductPage() {
               Quantity
             </p>
             <input
-              type="text"
-              inputMode="numeric"
-              pattern="[0-9]*"
+              type="number"
+              min={1}
               value={quantity}
               onChange={(e) => {
-                const val = e.target.value.replace(/[^0-9]/g, "");
-                setQuantity(val);
+                setQuantity(e.target.value);
               }}
-              onBlur={() => {
-                if (quantity === "" || quantity === "0") setQuantity("1");
+              style={{
+                width: 90,
+                height: 56,
+                border: "1px solid #cfcfcf",
+                background: "#fff",
+                fontSize: "16px",
+                padding: "0 14px",
+                outline: "none",
               }}
-              style={{ width: "100%", padding: "14px", fontSize: "15px", border: "1px solid #bbb", background: "#fff", textAlign: "center", marginBottom: 10 }}
             />
             <button
               onClick={handleAddToCart}
-              style={{ width: "100%", background: "#111", color: "#fff", border: "none", padding: "16px", fontWeight: 700, letterSpacing: "0.15em", textTransform: "uppercase" }}
+              disabled={!quantity || Number(quantity) <= 0}
+              style={{
+                width: "100%",
+                background: !quantity || Number(quantity) <= 0 ? "#999" : "#111",
+                color: "#fff",
+                border: "none",
+                padding: "16px",
+                fontWeight: 700,
+                letterSpacing: "0.15em",
+                textTransform: "uppercase",
+                cursor: !quantity || Number(quantity) <= 0 ? "not-allowed" : "pointer",
+                opacity: !quantity || Number(quantity) <= 0 ? 0.6 : 1,
+              }}
             >
               Add to Cart
             </button>
