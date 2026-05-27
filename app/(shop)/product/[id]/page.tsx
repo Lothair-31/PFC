@@ -284,22 +284,37 @@ export default function ProductPage() {
 
           <div style={{ display: "flex", gap: 12 }}>
             <input
-              type="text"
-              inputMode="numeric"
-              pattern="[0-9]*"
+              type="number"
+              min={1}
               value={quantity}
               onChange={(e) => {
-                const val = e.target.value.replace(/[^0-9]/g, "");
-                setQuantity(val);
+                setQuantity(e.target.value);
               }}
-              onBlur={() => {
-                if (quantity === "" || quantity === "0") setQuantity("1");
+              style={{
+                width: 90,
+                height: 56,
+                border: "1px solid #cfcfcf",
+                background: "#fff",
+                fontSize: "16px",
+                padding: "0 14px",
+                outline: "none",
               }}
-              style={{ width: 90, height: 56, border: "1px solid #cfcfcf", background: "#fff", fontSize: "16px", padding: "0 14px", outline: "none" }}
             />
             <button
               onClick={handleAddToCart}
-              style={{ flex: 1, height: 56, background: "#111", color: "#fff", border: "none", fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", cursor: "pointer" }}
+              disabled={!quantity || Number(quantity) <= 0}
+              style={{
+                flex: 1,
+                height: 56,
+                background: !quantity || Number(quantity) <= 0 ? "#999" : "#111",
+                color: "#fff",
+                border: "none",
+                fontWeight: 700,
+                letterSpacing: "0.18em",
+                textTransform: "uppercase",
+                cursor: !quantity || Number(quantity) <= 0 ? "not-allowed" : "pointer",
+                opacity: !quantity || Number(quantity) <= 0 ? 0.6 : 1,
+              }}
             >
               Add to Cart
             </button>
