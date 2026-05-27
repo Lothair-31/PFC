@@ -22,7 +22,7 @@ export default function ProductPage() {
   const [loading, setLoading] = useState(true);
   const [isMobile, setIsMobile] = useState(false);
   const [activeSlide, setActiveSlide] = useState(0);
-  const [quantity, setQuantity] = useState(1);
+  const [quantity, setQuantity] = useState<string>("1");
 
   const slideRefs = useRef<(HTMLDivElement | null)[]>([]);
   const { addToCart } = useCart();
@@ -290,10 +290,11 @@ export default function ProductPage() {
               pattern="[0-9]*"
               value={quantity}
               onChange={(e) => {
-                const val = e.target.value;
-                if (val === "") { setQuantity(0); return; }
-                const num = parseInt(val);
-                if (!isNaN(num) && num >= 0) setQuantity(num);
+                const val = e.target.value.replace(/[^0-9]/g, "");
+                setQuantity(val);
+              }}
+              onBlur={() => {
+                if (quantity === "" || quantity === "0") setQuantity("1");
               }}
               style={{ width: 90, height: 56, border: "1px solid #cfcfcf", background: "#fff", fontSize: "16px", padding: "0 14px", outline: "none" }}
             />
