@@ -231,6 +231,7 @@ export default function CartDrawer({ open, onClose }: CartDrawerProps) {
               style={{
                 width: "100%",
                 height: 56,
+                marginBottom: 50,
                 background: "#000",
                 color: "#fff",
                 border: "none",
