@@ -474,7 +474,7 @@ export default function Nav() {
             <SearchIcon />
           </button>
           <Link
-            href="/Account"
+            href={`/Account?returnTo=${encodeURIComponent(pathname)}`}
             className="nav-account-text nav-link-hover"
             style={{
               textDecoration: "none",
@@ -561,7 +561,7 @@ export default function Nav() {
             Women
           </Link>
 
-          <Link href="/Account" className="mobile-menu-link" onClick={closeMobileMenu}>Account</Link>
+          <Link href={`/Account?returnTo=${encodeURIComponent(pathname)}`} className="mobile-menu-link" onClick={closeMobileMenu}>Account</Link>
 
         </div>
       </div>
